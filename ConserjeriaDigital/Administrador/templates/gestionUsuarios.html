@@ -1,0 +1,59 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestión de Usuarios {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Agregar Usuario</h2>
+        <div class="card">  
+            <div class="card-body">
+                <form action="/AgregarUsuario/" method="POST">{% csrf_token %}
+                   
+                    <div class="form-group">
+                        <input type="text" id="RUT" name="RUT" class="form-control" placeholder="RUT"
+                            minlength="9" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="Departamento" name="Departamento" class="form-control" placeholder="Departamento"
+                            minlength="6" maxlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="Nombre"
+                            minlength="1" maxlength="15" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Usuarios</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Departamento</th>
+                        <th>Nombre</th>
+                        <th>En Casilla</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in personas %}
+                    <tr>
+                        <td>{{c.NumeroDepartamento}}</td>
+                        <td>{{c.usuario.nombre}}</td>
+                        <td>{{c.casilla}}</td>
+                        <td><a href="../editarUsuario/{{c.usuario.rut}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="../eliminarUsuario/{{c.usuario.rut}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

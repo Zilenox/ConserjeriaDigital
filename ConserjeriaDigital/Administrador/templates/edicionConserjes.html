@@ -1,0 +1,30 @@
+{% extends "./base.html" %}
+
+{% block title %} Edicion de conserjes {% endblock %}
+
+{% block body %}
+
+    <div class ="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">  
+                <div class="card-body">
+                    <form action="/EditConserje/" method="POST">{% csrf_token %}
+
+                        <div class="form-group">
+                            <input type="text" id="RUT" name="RUT" value="{{ConserjeToModify.rut}}" class="form-control" placeholder="RUT"
+                                minlength="9" maxlength="10" readonly required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="Nombre" name="Nombre" value = "{{ConserjeToModify.nombre}}" class="form-control" placeholder="Nombre"
+                                minlength="1" maxlength="15" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

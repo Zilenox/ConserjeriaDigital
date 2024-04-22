@@ -1,0 +1,34 @@
+{% extends "./base.html" %}
+
+{% block title %} Edición de Usuarios {% endblock %}
+
+{% block body %}
+
+    <div class ="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">  
+                <div class="card-body">
+                    <form action="/EditUser/" method="POST">{% csrf_token %}
+
+                        <div class="form-group">
+                            <input type="text" id="RUT" name="RUT" value="{{userToModify.usuario.rut}}" class="form-control" placeholder="RUT"
+                                minlength="9" maxlength="10" readonly required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="Nombre" name="Nombre" value = "{{userToModify.usuario.nombre}}" class="form-control" placeholder="Nombre"
+                                minlength="1" maxlength="15" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="Departamento" name="Departamento" value="{{userToModify.NumeroDepartamento}}" class="form-control" placeholder="Departamento"
+                                minlength="1" maxlength="6" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

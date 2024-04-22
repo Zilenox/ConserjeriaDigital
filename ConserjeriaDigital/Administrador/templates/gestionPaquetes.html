@@ -1,0 +1,72 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestión de Paquetes {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Agregar Paquete</h2>
+        <div class="card">  
+            <div class="card-body">
+                <form action="/AgregarPaquete/" method="POST">{% csrf_token %}
+                    Departamento
+                    <div class="form-group">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name = "DEPTO[]" required>
+                            {% if personas.count == 0 %}
+                                <option>NO EXISTEN USUARIOS REGISTRADOS</option>
+                            {% else %}
+                                {% for U in personas %}
+                                <option value="{{U.NumeroDepartamento}}">{{U.NumeroDepartamento}}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    Tipo de paquete<div></div>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" name = "tipo[]">
+                        <option selected value="C">Carta</option>
+                        <option value="E">Encomienda</option>
+                    </select>
+                    <div> 
+
+                    </div> <div> 
+                        
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Paquetes</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Departamento</th>
+                        <th>Tipo</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in paquetes %}
+                    <tr>
+                        <td>{{c.id}}</td>
+                        <td>{{c.destinatario.NumeroDepartamento}}</td>
+                        {% if c.type == "C" %}
+                            <td>Carta</td>
+                        {% else %}
+                            <td>Encomienda</td>
+                        {% endif %}
+                        <td><a href="../editarPaquete/{{c.id}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="../eliminarPaquete/{{c.id}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
